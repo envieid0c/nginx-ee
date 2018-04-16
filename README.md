@@ -30,6 +30,7 @@ Nginx current release : **v1.13.12**
 * Openssl 1.1.1
 * ngx_http_auth_pam_module
 * socks-nginx-module
+* lua-nginx-module
 * ngx_pagespeed (optional)
 * naxsi WAF (optional)
 -----
