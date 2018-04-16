@@ -42,6 +42,8 @@ Nginx current release : **v1.13.12**
 * nchan
 * rds-json-nginx-module
 * nginx-length-hiding-filter-module
+* rds-csv-nginx-module
+* encrypted-session-nginx-module
 * ngx_pagespeed (optional)
 * naxsi WAF (optional)
 -----
