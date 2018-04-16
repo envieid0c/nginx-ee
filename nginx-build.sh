@@ -264,6 +264,7 @@ echo -ne "       Configure nginx                       [..]\\r"
  --with-http_auth_request_module  \
  --with-http_addition_module  \
  --with-http_geoip_module  \
+ --with-http_perl_module \
  --with-http_gzip_static_module  \
  --with-http_image_filter_module  \
  --with-http_v2_module  \
