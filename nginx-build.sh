@@ -244,10 +244,11 @@ echo -ne "       Configure nginx                       [..]\\r"
 
 ./configure \
  $ngx_naxsi \
- --with-cc-opt='-g -O3 -fstack-protector-strong -Wformat -Werror=format-security -Wp,-D_FORTIFY_SOURCE=2 -fPIC' \
+ --with-cc-opt='-g -O2 -fstack-protector-strong -Wformat -Werror=format-security -Wp,-D_FORTIFY_SOURCE=2 -fPIC' \
  --with-ld-opt='-Wl,-Bsymbolic-functions -Wl,-z,relro -Wl,-z,now -Wl,--as-needed -pie' \
  --prefix=/usr/share/nginx  \
  --conf-path=/etc/nginx/nginx.conf \
+ --modules-path=/etc/nginx/modules \
  --http-log-path=/var/log/nginx/access.log \
  --error-log-path=/var/log/nginx/error.log \
  --lock-path=/var/lock/nginx.lock \
@@ -284,19 +285,19 @@ echo -ne "       Configure nginx                       [..]\\r"
  --add-module=/usr/local/src/ngx_http_redis   \
  --add-module=/usr/local/src/ngx_brotli  \
  --add-module=/usr/local/src/ngx_http_auth_pam_module \
- --add-module=/usr/local/src/socks-nginx-module \
- --add-module=/usr/local/src/lua-nginx-module \
- --add-module=/usr/local/src/encrypted-session-nginx-module \
- --add-module=/usr/local/src/iconv-nginx-module \
- --add-module=/usr/local/src/array-var-nginx-module \
- --add-module=/usr/local/src/nginx-ts-module \
- --add-module=/usr/local/src/nginx-rtmp-module \
- --add-module=/usr/local/src/nginx-module-vts \
- --add-module=/usr/local/src/graphite-nginx-module \
- --add-module=/usr/local/src/ngx-fancyindex \
- --add-module=/usr/local/src/nchan \
- --add-module=/usr/local/src/rds-json-nginx-module \
- --add-module=/usr/local/src/nginx-length-hiding-filter-module \
+ --add-dynamic-module=/usr/local/src/socks-nginx-module \
+ --add-dynamic-module=/usr/local/src/lua-nginx-module \
+ --add-dynamic-module=/usr/local/src/encrypted-session-nginx-module \
+ --add-dynamic-module=/usr/local/src/iconv-nginx-module \
+ --add-dynamic-module=/usr/local/src/array-var-nginx-module \
+ --add-dynamic-module=/usr/local/src/nginx-ts-module \
+ --add-dynamic-module=/usr/local/src/nginx-rtmp-module \
+ --add-dynamic-module=/usr/local/src/nginx-module-vts \
+ --add-dynamic-module=/usr/local/src/graphite-nginx-module \
+ --add-dynamic-module=/usr/local/src/ngx-fancyindex \
+ --add-dynamic-module=/usr/local/src/nchan \
+ --add-dynamic-module=/usr/local/src/rds-json-nginx-module \
+ --add-dynamic-module=/usr/local/src/nginx-length-hiding-filter-module \
  $ngx_pagespeed \
  --with-openssl=/usr/local/src/openssl \
  --with-openssl-opt=enable-tls1_3 \
