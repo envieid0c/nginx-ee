@@ -87,6 +87,8 @@ git clone https://github.com/openresty/set-misc-nginx-module.git >> /tmp/nginx-e
 git clone https://github.com/FRiCKLE/ngx_coolkit.git >> /tmp/nginx-ee.log 2>&1
 git clone https://github.com/sto/ngx_http_auth_pam_module.git >> /tmp/nginx-ee.log 2>&1
 git clone https://github.com/envieid0c/socks-nginx-module.git >> /tmp/nginx-ee.log 2>&1
+git clone https://github.com/simplresty/ngx_devel_kit.git >> /tmp/nginx-ee.log 2>&1
+git clone https://github.com/openresty/lua-nginx-module.git >> /tmp/nginx-ee.log 2>&1
 
 wget https://people.freebsd.org/~osa/ngx_http_redis-0.3.8.tar.gz >> /tmp/nginx-ee.log 2>&1
 tar -zxf ngx_http_redis-0.3.8.tar.gz >> /tmp/nginx-ee.log 2>&1
@@ -271,6 +273,7 @@ echo -ne "       Configure nginx                       [..]\\r"
  --add-module=/usr/local/src/ngx_brotli  \
  --add-module=/usr/local/src/ngx_http_auth_pam_module \
  --add-module=/usr/local/src/socks-nginx-module \
+ --add-module=/usr/local/src/lua-nginx-module \
  $ngx_pagespeed \
  --with-openssl=/usr/local/src/openssl \
  --with-openssl-opt=enable-tls1_3 \
