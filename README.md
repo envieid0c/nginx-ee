@@ -49,7 +49,7 @@ Nginx current release : **v1.13.12**
 ## Usage
 
 ```
-bash <(wget -O - https://raw.githubusercontent.com/VirtuBox/nginx-ee/master/nginx-build.sh)
+bash <(wget -O - https://raw.githubusercontent.com/envieid0c/nginx-ee/master/nginx-build.sh)
 ```
 -----
 
