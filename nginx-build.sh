@@ -89,6 +89,17 @@ git clone https://github.com/sto/ngx_http_auth_pam_module.git >> /tmp/nginx-ee.l
 git clone https://github.com/envieid0c/socks-nginx-module.git >> /tmp/nginx-ee.log 2>&1
 git clone https://github.com/simplresty/ngx_devel_kit.git >> /tmp/nginx-ee.log 2>&1
 git clone https://github.com/openresty/lua-nginx-module.git >> /tmp/nginx-ee.log 2>&1
+git clone https://github.com/openresty/encrypted-session-nginx-module.git >> /tmp/nginx-ee.log 2>&1
+git clone https://github.com/calio/iconv-nginx-module.git >> /tmp/nginx-ee.log 2>&1
+git clone https://github.com/openresty/array-var-nginx-module.git >> /tmp/nginx-ee.log 2>&1
+git clone https://github.com/arut/nginx-ts-module.git >> /tmp/nginx-ee.log 2>&1
+git clone https://github.com/sergey-dryabzhinsky/nginx-rtmp-module.git  >> /tmp/nginx-ee.log 2>&1
+git clone https://github.com/vozlt/nginx-module-vts.git >> /tmp/nginx-ee.log 2>&1
+git clone https://github.com/mailru/graphite-nginx-module.git >> /tmp/nginx-ee.log 2>&1
+git clone https://github.com/aperezdc/ngx-fancyindex.git >> /tmp/nginx-ee.log 2>&1
+git clone https://github.com/slact/nchan.git >> /tmp/nginx-ee.log 2>&1
+git clone https://github.com/openresty/rds-json-nginx-module.git >> /tmp/nginx-ee.log 2>&1
+git clone https://github.com/nulab/nginx-length-hiding-filter-module.git >> /tmp/nginx-ee.log 2>&1
 
 wget https://people.freebsd.org/~osa/ngx_http_redis-0.3.8.tar.gz >> /tmp/nginx-ee.log 2>&1
 tar -zxf ngx_http_redis-0.3.8.tar.gz >> /tmp/nginx-ee.log 2>&1
@@ -233,7 +244,7 @@ echo -ne "       Configure nginx                       [..]\\r"
 
 ./configure \
  $ngx_naxsi \
- --with-cc-opt='-g -O2 -fstack-protector-strong -Wformat -Werror=format-security -Wp,-D_FORTIFY_SOURCE=2 -fPIC' \
+ --with-cc-opt='-g -O3 -fstack-protector-strong -Wformat -Werror=format-security -Wp,-D_FORTIFY_SOURCE=2 -fPIC' \
  --with-ld-opt='-Wl,-Bsymbolic-functions -Wl,-z,relro -Wl,-z,now -Wl,--as-needed -pie' \
  --prefix=/usr/share/nginx  \
  --conf-path=/etc/nginx/nginx.conf \
@@ -274,6 +285,17 @@ echo -ne "       Configure nginx                       [..]\\r"
  --add-module=/usr/local/src/ngx_http_auth_pam_module \
  --add-module=/usr/local/src/socks-nginx-module \
  --add-module=/usr/local/src/lua-nginx-module \
+ --add-module=/usr/local/src/encrypted-session-nginx-module \
+ --add-module=/usr/local/src/iconv-nginx-module \
+ --add-module=/usr/local/src/array-var-nginx-module \
+ --add-module=/usr/local/src/nginx-ts-module \
+ --add-module=/usr/local/src/nginx-rtmp-module \
+ --add-module=/usr/local/src/nginx-module-vts \
+ --add-module=/usr/local/src/graphite-nginx-module \
+ --add-module=/usr/local/src/ngx-fancyindex \
+ --add-module=/usr/local/src/nchan \
+ --add-module=/usr/local/src/rds-json-nginx-module \
+ --add-module=/usr/local/src/nginx-length-hiding-filter-module \
  $ngx_pagespeed \
  --with-openssl=/usr/local/src/openssl \
  --with-openssl-opt=enable-tls1_3 \
