@@ -31,6 +31,17 @@ Nginx current release : **v1.13.12**
 * ngx_http_auth_pam_module
 * socks-nginx-module
 * lua-nginx-module
+* encrypted-session-nginx-module
+* iconv-nginx-module
+* array-var-nginx-module
+* nginx-ts-module
+* nginx-rtmp-module
+* nginx-module-vts
+* graphite-nginx-module
+* ngx-fancyindex
+* nchan
+* rds-json-nginx-module
+* nginx-length-hiding-filter-module
 * ngx_pagespeed (optional)
 * naxsi WAF (optional)
 -----
