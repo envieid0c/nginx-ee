@@ -100,6 +100,8 @@ git clone https://github.com/aperezdc/ngx-fancyindex.git >> /tmp/nginx-ee.log 2>
 git clone https://github.com/slact/nchan.git >> /tmp/nginx-ee.log 2>&1
 git clone https://github.com/openresty/rds-json-nginx-module.git >> /tmp/nginx-ee.log 2>&1
 git clone https://github.com/nulab/nginx-length-hiding-filter-module.git >> /tmp/nginx-ee.log 2>&1
+git clone https://github.com/openresty/rds-csv-nginx-module.git >> /tmp/nginx-ee.log 2>&1
+git clone https://github.com/openresty/encrypted-session-nginx-module.git >> /tmp/nginx-ee.log 2>&1
 
 wget https://people.freebsd.org/~osa/ngx_http_redis-0.3.8.tar.gz >> /tmp/nginx-ee.log 2>&1
 tar -zxf ngx_http_redis-0.3.8.tar.gz >> /tmp/nginx-ee.log 2>&1
@@ -248,7 +250,6 @@ echo -ne "       Configure nginx                       [..]\\r"
  --with-ld-opt='-Wl,-Bsymbolic-functions -Wl,-z,relro -Wl,-z,now -Wl,--as-needed -pie' \
  --prefix=/usr/share/nginx  \
  --conf-path=/etc/nginx/nginx.conf \
- --modules-path=/etc/nginx/modules \
  --http-log-path=/var/log/nginx/access.log \
  --error-log-path=/var/log/nginx/error.log \
  --lock-path=/var/lock/nginx.lock \
@@ -298,6 +299,8 @@ echo -ne "       Configure nginx                       [..]\\r"
  --add-dynamic-module=/usr/local/src/nchan \
  --add-dynamic-module=/usr/local/src/rds-json-nginx-module \
  --add-dynamic-module=/usr/local/src/nginx-length-hiding-filter-module \
+ --add-dynamic-module=/usr/local/src/rds-csv-nginx-module \
+ --add-dynamic-module=/usr/local/src/encrypted-session-nginx-module \
  $ngx_pagespeed \
  --with-openssl=/usr/local/src/openssl \
  --with-openssl-opt=enable-tls1_3 \
