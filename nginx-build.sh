@@ -10,11 +10,11 @@ CEND="${CSI}0m"
 CRED="${CSI}1;31m"
 CGREEN="${CSI}1;32m"
 
-cd /tmp
-wget http://luajit.org/download/LuaJIT-2.1.0-beta3.tar.gz
-tar -xzvf LuaJIT-2.1.0-beta3.tar.gz
-cd LuaJIT-2.1.0-beta3/
-make && sudo make install
+cd /tmp >> /tmp/nginx-ee.log 2>&1
+wget http://luajit.org/download/LuaJIT-2.1.0-beta3.tar.gz >> /tmp/nginx-ee.log 2>&1
+tar -xzvf LuaJIT-2.1.0-beta3.tar.gz >> /tmp/nginx-ee.log 2>&1
+cd LuaJIT-2.1.0-beta3/ >> /tmp/nginx-ee.log 2>&1
+make && sudo make install >> /tmp/nginx-ee.log 2>&1
 
 export LUAJIT_LIB=/usr/local/lib
 export LUAJIT_INC=/usr/local/include/luajit-2.1/
