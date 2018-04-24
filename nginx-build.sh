@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# variables 
+# variables
 
 NGINX_VER=1.14.0
 
@@ -9,6 +9,15 @@ CSI="\\033["
 CEND="${CSI}0m"
 CRED="${CSI}1;31m"
 CGREEN="${CSI}1;32m"
+
+cd /tmp
+wget http://luajit.org/download/LuaJIT-2.1.0-beta3.tar.gz
+tar -xzvf LuaJIT-2.1.0-beta3.tar.gz
+cd LuaJIT-2.1.0-beta3/
+make && sudo make install
+
+export LUAJIT_LIB=/usr/local/lib
+export LUAJIT_INC=/usr/local/include/luajit-2.1/
 
 # Check if user is root
 if [ "$(id -u)" != "0" ]; then
@@ -50,7 +59,7 @@ fi
 ## install prerequisites 
 
 echo -ne "       Installing dependencies               [..]\\r"
-apt-get update >> /tmp/nginx-ee.log 2>&1 
+apt-get update >> /tmp/nginx-ee.log 2>&1
 apt-get install -y git build-essential libtool automake autoconf zlib1g-dev \
 libpcre3-dev libgd-dev libssl-dev libxslt1-dev libxml2-dev libgeoip-dev \
 libgoogle-perftools-dev libperl-dev libpam0g-dev libxslt1-dev >> /tmp/nginx-ee.log 2>&1
@@ -69,7 +78,7 @@ fi
 ## clean previous compilation
 
 rm -rf /usr/local/src/* >> /tmp/nginx-ee.log 2>&1
-cd /usr/local/src || exit 
+cd /usr/local/src || exit
 
 ## get additionals modules
 
@@ -105,7 +114,7 @@ git clone https://github.com/openresty/encrypted-session-nginx-module.git >> /tm
 
 wget https://people.freebsd.org/~osa/ngx_http_redis-0.3.8.tar.gz >> /tmp/nginx-ee.log 2>&1
 tar -zxf ngx_http_redis-0.3.8.tar.gz >> /tmp/nginx-ee.log 2>&1
-mv ngx_http_redis-0.3.8 ngx_http_redis 
+mv ngx_http_redis-0.3.8 ngx_http_redis
 
 if [ $? -eq 0 ]; then
 			echo -ne "       Downloading additionals modules        [${CGREEN}OK${CEND}]\\r"
@@ -316,11 +325,11 @@ echo -ne "       Configure nginx                       [..]\\r"
  			echo ""
  			exit 1
  fi
- 
+
  ## compilation
- 
+
  echo -ne "       Compile nginx                          [..]\\r"
- 
+
 make -j "$(nproc)" >> /tmp/nginx-ee.log 2>&1
 make install >> /tmp/nginx-ee.log 2>&1
 
