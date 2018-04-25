@@ -14,7 +14,8 @@ cd /tmp >> /tmp/nginx-ee.log 2>&1
 wget http://luajit.org/download/LuaJIT-2.1.0-beta3.tar.gz >> /tmp/nginx-ee.log 2>&1
 tar -xzvf LuaJIT-2.1.0-beta3.tar.gz >> /tmp/nginx-ee.log 2>&1
 cd LuaJIT-2.1.0-beta3/ >> /tmp/nginx-ee.log 2>&1
-make && sudo make install >> /tmp/nginx-ee.log 2>&1
+make >> /tmp/nginx-ee.log 2>&1
+make install >> /tmp/nginx-ee.log 2>&1
 
 export LUAJIT_LIB=/usr/local/lib
 export LUAJIT_INC=/usr/local/include/luajit-2.1/
