@@ -112,6 +112,8 @@ git clone https://github.com/openresty/rds-json-nginx-module.git >> /tmp/nginx-e
 git clone https://github.com/nulab/nginx-length-hiding-filter-module.git >> /tmp/nginx-ee.log 2>&1
 git clone https://github.com/openresty/rds-csv-nginx-module.git >> /tmp/nginx-ee.log 2>&1
 git clone https://github.com/openresty/encrypted-session-nginx-module.git >> /tmp/nginx-ee.log 2>&1
+git clone https://github.com/masonicboom/ipscrub.git ipscrubtmp >> /tmp/nginx-ee.log 2>&1
+cp -rf /usr/local/src/ipscrubtmp/ipscrub /usr/local/src/ipscrub >> /tmp/nginx-ee.log 2>&1
 
 wget https://people.freebsd.org/~osa/ngx_http_redis-0.3.8.tar.gz >> /tmp/nginx-ee.log 2>&1
 tar -zxf ngx_http_redis-0.3.8.tar.gz >> /tmp/nginx-ee.log 2>&1
@@ -311,6 +313,7 @@ echo -ne "       Configure nginx                       [..]\\r"
  --add-dynamic-module=/usr/local/src/nginx-length-hiding-filter-module \
  --add-dynamic-module=/usr/local/src/rds-csv-nginx-module \
  --add-dynamic-module=/usr/local/src/encrypted-session-nginx-module \
+ --add-module=/usr/local/src/ipscrub \
  $ngx_pagespeed \
  --with-openssl=/usr/local/src/openssl \
  --with-openssl-opt=enable-tls1_3 \
