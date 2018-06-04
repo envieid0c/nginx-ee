@@ -44,6 +44,7 @@ Nginx current release : **v1.14.0**
 * nginx-length-hiding-filter-module
 * rds-csv-nginx-module
 * encrypted-session-nginx-module
+* ipscrub
 * ngx_pagespeed (optional)
 * naxsi WAF (optional)
 -----
@@ -67,7 +68,7 @@ bash <(wget -O - https://raw.githubusercontent.com/envieid0c/nginx-ee/master/ngi
 ```
 -----
 
-##  Nginx configuration 
+## Nginx configuration 
 
 * [Wiki](https://github.com/VirtuBox/nginx-ee/wiki/)
 
