@@ -8,7 +8,7 @@ Compile and install the latest nginx release with EasyEngine
 
 -----
 ## Features
-* Update Nginx to the Latest mainline release 
+* Compile the latest Nginx Mainline or Stable Release 
 * Additonal modules
 * TLS v1.3 Support
 
@@ -16,7 +16,8 @@ Compile and install the latest nginx release with EasyEngine
 
 ## Additional modules 
 
-Nginx current release : **v1.15.0**
+Nginx current mainline release : **v1.15.0**
+Nginx current stable release : **v1.14.0**
 
 * ngx_cache_purge
 * memcached_nginx_module
@@ -51,8 +52,9 @@ Nginx current release : **v1.15.0**
 
 ## Compatibility
 
-* Ubuntu 16.04 LTS
-* Debian 8 Jessie 
+* Ubuntu 16.04 LTS (Xenial)
+* Ubuntu 18.04 LTS (Bionic)
+* Debian 8 Jessie
 
 ----
 
@@ -75,9 +77,8 @@ bash <(wget -O - https://raw.githubusercontent.com/envieid0c/nginx-ee/master/ngi
 -----
 ## Roadmap
 * add nginx configuration examples
-* add nginx stable release
 
-Published by <a href="https://virtubox.net" title="VirtuBox">VirtuBox</a>
+Published & maintained by <a href="https://virtubox.net" title="VirtuBox">VirtuBox</a>
 
 
 
