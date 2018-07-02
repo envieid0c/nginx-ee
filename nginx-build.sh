@@ -65,7 +65,7 @@ echo ""
 if   [ "$NGINX_RELEASE" = "1" ]
 then
     NGINX_RELEASE=$NGINX_MAINLINE
-else 
+else
     NGINX_RELEASE=$NGINX_STABLE
 fi
 
@@ -91,7 +91,7 @@ else
     ngx_modsecurity=""
 fi
 
-## install prerequisites 
+## install prerequisites
 
 echo -ne "       Installing dependencies               [..]\\r"
 apt-get update >> /tmp/nginx-ee.log 2>&1
@@ -147,6 +147,7 @@ git clone https://github.com/nulab/nginx-length-hiding-filter-module.git >> /tmp
 git clone https://github.com/openresty/rds-csv-nginx-module.git >> /tmp/nginx-ee.log 2>&1
 git clone https://github.com/openresty/encrypted-session-nginx-module.git >> /tmp/nginx-ee.log 2>&1
 git clone https://github.com/masonicboom/ipscrub.git ipscrubtmp >> /tmp/nginx-ee.log 2>&1
+git clone https://github.com/kyprizel/testcookie-nginx-module.git >> /tmp/nginx-ee.log 2>&1
 cp -rf /usr/local/src/ipscrubtmp/ipscrub /usr/local/src/ipscrub >> /tmp/nginx-ee.log 2>&1
 
 wget https://people.freebsd.org/~osa/ngx_http_redis-0.3.8.tar.gz >> /tmp/nginx-ee.log 2>&1
@@ -183,7 +184,7 @@ if [ $? -eq 0 ]; then
 	    exit 1
 fi
 
-## get openssl 
+## get openssl
 
 echo -ne "       Downloading openssl                    [..]\\r"
 
@@ -206,14 +207,14 @@ if [ $? -eq 0 ]; then
 	    exit 1
 fi
 
-## get naxsi 
+## get naxsi
 
 if [ "$naxsi" = "y" ]
 then
   echo -ne "       Downloading naxsi                      [..]\\r"
     git clone https://github.com/nbs-system/naxsi.git >> /tmp/nginx-ee.log 2>&1
   cd /usr/local/src || exit
-  
+
   if [ $? -eq 0 ]; then
 	    echo -ne "       Downloading naxsi                      [${CGREEN}OK${CEND}]\\r"
 	    echo -ne "\\n"
@@ -254,11 +255,11 @@ then
   echo -ne "       Downloading modsecurity                      [..]\\r"
     git clone --depth 1 -b v3/master --single-branch https://github.com/SpiderLabs/ModSecurity >> /tmp/nginx-ee.log 2>&1
     git clone --depth 1 https://github.com/SpiderLabs/ModSecurity-nginx.git >> /tmp/nginx-ee.log 2>&1
-    cd /usr/local/src/ModSecurity ; git submodule init ; git submodule update ; ./build.sh ; ./configure ; make ; make install
-    mkdir /etc/nginx/modsec
-    wget -P /etc/nginx/modsec/ https://raw.githubusercontent.com/SpiderLabs/ModSecurity/v3/master/modsecurity.conf-recommended
-    mv /etc/nginx/modsec/modsecurity.conf-recommended /etc/nginx/modsec/modsecurity.conf
-    sed -i 's/SecRuleEngine DetectionOnly/SecRuleEngine On/' /etc/nginx/modsec/modsecurity.conf
+    cd /usr/local/src/ModSecurity ; git submodule init ; git submodule update ; ./build.sh ; ./configure ; make ; make install 2>&1
+    mkdir /etc/nginx/modsec 2>&1
+    wget -P /etc/nginx/modsec/ https://raw.githubusercontent.com/SpiderLabs/ModSecurity/v3/master/modsecurity.conf-recommended 2>&1
+    mv /etc/nginx/modsec/modsecurity.conf-recommended /etc/nginx/modsec/modsecurity.conf 2>&1
+    sed -i 's/SecRuleEngine DetectionOnly/SecRuleEngine On/' /etc/nginx/modsec/modsecurity.conf 2>&1
   cd /usr/local/src || exit
 
   if [ $? -eq 0 ]; then
@@ -374,6 +375,7 @@ echo -ne "       Configure nginx                       [..]\\r"
  --add-dynamic-module=/usr/local/src/rds-csv-nginx-module \
  --add-dynamic-module=/usr/local/src/encrypted-session-nginx-module \
  --add-dynamic-module=/usr/local/src/ModSecurity-nginx \
+ --add-dynamic-module=/usr/local/src/testcookie-nginx-module \
  --add-module=/usr/local/src/ipscrub \
  $ngx_pagespeed \
  --with-openssl=/usr/local/src/openssl \
