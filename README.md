@@ -48,6 +48,7 @@ Nginx current stable release : **v1.14.0**
 * ipscrub
 * ngx_pagespeed (optional)
 * naxsi WAF (optional)
+* ModSecurity (optional)
 -----
 
 ## Compatibility

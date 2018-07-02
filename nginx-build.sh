@@ -38,46 +38,57 @@ echo ""
 echo ""
 echo "Do you want to compile the latest Nginx Mainline [1] or Stable [2] Release ?"
 while [[ $NGINX_RELEASE != "1" && $NGINX_RELEASE != "2" ]]; do
-	read -p "Select an option [1-2]: " NGINX_RELEASE
+    read -p "Select an option [1-2]: " NGINX_RELEASE
 done
 
 echo ""
 echo "Do you want Ngx_Pagespeed ? (y/n)"
 while [[ $pagespeed != "y" && $pagespeed != "n" ]]; do
-	read -p "Select an option [y/n]: " pagespeed
+    read -p "Select an option [y/n]: " pagespeed
 done
+
 echo ""
+echo "Do you want ModSecurity ? (y/n)"
+while [[ $modsecurity != "y" && $modsecurity != "n" ]]; do
+    read -p "Select an option [y/n]: " modsecurity
+done
+
 echo ""
 echo "Do you want NAXSI WAF (still experimental)? (y/n)"
 while [[ $naxsi != "y" && $naxsi != "n" ]]; do
-	read -p "Select an option [y/n]: " naxsi
+    read -p "Select an option [y/n]: " naxsi
 done
 echo ""
-
 
 # set additionals modules
 
 if   [ "$NGINX_RELEASE" = "1" ]
 then
-	NGINX_RELEASE=$NGINX_MAINLINE
+    NGINX_RELEASE=$NGINX_MAINLINE
 else 
-	NGINX_RELEASE=$NGINX_STABLE
+    NGINX_RELEASE=$NGINX_STABLE
 fi
-
 
 
 if [ "$naxsi" = "y" ]
 then
-	ngx_naxsi="--add-module=/usr/local/src/naxsi/naxsi_src "
+    ngx_naxsi="--add-module=/usr/local/src/naxsi/naxsi_src "
 else
-	ngx_naxsi=""
+    ngx_naxsi=""
 fi
 
 if [ "$pagespeed" = "y" ]
 then
-	ngx_pagespeed="--add-module=/usr/local/src/incubator-pagespeed-ngx-latest-beta "
+    ngx_pagespeed="--add-module=/usr/local/src/incubator-pagespeed-ngx-latest-beta "
 else
-	ngx_pagespeed=""
+    ngx_pagespeed=""
+fi
+
+if [ "$modsecurity" = "y" ]
+then
+    ngx_modsecurity="--add-module=/usr/local/src/Modsecurity "
+else
+    ngx_modsecurity=""
 fi
 
 ## install prerequisites 
@@ -89,14 +100,14 @@ libpcre3-dev libgd-dev libssl-dev libxslt1-dev libxml2-dev libgeoip-dev \
 libgoogle-perftools-dev libperl-dev libpam0g-dev libxslt1-dev libbsd-dev >> /tmp/nginx-ee.log 2>&1
 
 if [ $? -eq 0 ]; then
-			echo -ne "       Installing dependencies                [${CGREEN}OK${CEND}]\\r"
-			echo -ne "\\n"
-		else
-			echo -e "        Installing dependencies              [${CRED}FAIL${CEND}]"
-			echo ""
-			echo "Please look at /tmp/nginx-ee.log"
-			echo ""
-			exit 1
+	    echo -ne "       Installing dependencies                [${CGREEN}OK${CEND}]\\r"
+	    echo -ne "\\n"
+	else
+	    echo -e "        Installing dependencies              [${CRED}FAIL${CEND}]"
+	    echo ""
+	    echo "Please look at /tmp/nginx-ee.log"
+	    echo ""
+	    exit 1
 fi
 
 ## clean previous compilation
@@ -143,14 +154,14 @@ tar -zxf ngx_http_redis-0.3.8.tar.gz >> /tmp/nginx-ee.log 2>&1
 mv ngx_http_redis-0.3.8 ngx_http_redis
 
 if [ $? -eq 0 ]; then
-			echo -ne "       Downloading additionals modules        [${CGREEN}OK${CEND}]\\r"
-			echo -ne "\\n"
-		else
-			echo -e "        Downloading additionals modules      [${CRED}FAIL${CEND}]"
-			echo ""
-			echo "Please look at /tmp/nginx-ee.log"
-			echo ""
-			exit 1
+	    echo -ne "       Downloading additionals modules        [${CGREEN}OK${CEND}]\\r"
+	    echo -ne "\\n"
+	else
+	    echo -e "        Downloading additionals modules      [${CRED}FAIL${CEND}]"
+	    echo ""
+	    echo "Please look at /tmp/nginx-ee.log"
+	    echo ""
+	    exit 1
 fi
 
 # get brotli
@@ -162,14 +173,14 @@ cd ngx_brotli || exit
 git submodule update --init --recursive >> /tmp/nginx-ee.log 2>&1
 
 if [ $? -eq 0 ]; then
-			echo -ne "       Downloading brotli                     [${CGREEN}OK${CEND}]\\r"
-			echo -ne "\\n"
-		else
-			echo -e "       Downloading brotli      [${CRED}FAIL${CEND}]"
-			echo ""
-			echo "Please look at /tmp/nginx-ee.log"
-			echo ""
-			exit 1
+	    echo -ne "       Downloading brotli                     [${CGREEN}OK${CEND}]\\r"
+	    echo -ne "\\n"
+	else
+	    echo -e "       Downloading brotli      [${CRED}FAIL${CEND}]"
+	    echo ""
+	    echo "Please look at /tmp/nginx-ee.log"
+	    echo ""
+	    exit 1
 fi
 
 ## get openssl 
@@ -179,20 +190,20 @@ echo -ne "       Downloading openssl                    [..]\\r"
 cd /usr/local/src || exit
 
 git clone https://github.com/openssl/openssl.git >> /tmp/nginx-ee.log 2>&1
-cd openssl || exit
-git checkout tls1.3-draft-18 >> /tmp/nginx-ee.log 2>&1
+#cd openssl || exit
+#git checkout tls1.3-draft-18 >> /tmp/nginx-ee.log 2>&1
 
 cd /usr/local/src || exit
 
 if [ $? -eq 0 ]; then
-			echo -ne "       Downloading openssl                    [${CGREEN}OK${CEND}]\\r"
-			echo -ne "\\n"
-		else
-			echo -e "       Downloading openssl      [${CRED}FAIL${CEND}]"
-			echo ""
-			echo "Please look at /tmp/nginx-ee.log"
-			echo ""
-			exit 1
+	    echo -ne "       Downloading openssl                    [${CGREEN}OK${CEND}]\\r"
+	    echo -ne "\\n"
+	else
+	    echo -e "       Downloading openssl      [${CRED}FAIL${CEND}]"
+	    echo ""
+	    echo "Please look at /tmp/nginx-ee.log"
+	    echo ""
+	    exit 1
 fi
 
 ## get naxsi 
@@ -200,41 +211,67 @@ fi
 if [ "$naxsi" = "y" ]
 then
   echo -ne "       Downloading naxsi                      [..]\\r"
-	git clone https://github.com/nbs-system/naxsi.git --branch http2 >> /tmp/nginx-ee.log 2>&1
+    git clone https://github.com/nbs-system/naxsi.git >> /tmp/nginx-ee.log 2>&1
   cd /usr/local/src || exit
   
   if [ $? -eq 0 ]; then
-  			echo -ne "       Downloading naxsi                      [${CGREEN}OK${CEND}]\\r"
-  			echo -ne "\\n"
-  		else
-  			echo -e "       Downloading naxsi      [${CRED}FAIL${CEND}]"
-  			echo ""
-  			echo "Please look at /tmp/nginx-ee.log"
-  			echo ""
-  			exit 1
+	    echo -ne "       Downloading naxsi                      [${CGREEN}OK${CEND}]\\r"
+	    echo -ne "\\n"
+	else
+	    echo -e "       Downloading naxsi      [${CRED}FAIL${CEND}]"
+	    echo ""
+	    echo "Please look at /tmp/nginx-ee.log"
+	    echo ""
+	    exit 1
   fi
 
 fi
-
 
 ## get ngx_pagespeed
 
 if [ "$pagespeed" = "y" ]
 then
   echo -ne "       Downloading pagespeed               [..]\\r"
-	bash <(curl -f -L -sS https://ngxpagespeed.com/install) --ngx-pagespeed-version latest-beta -b /usr/local/src >> /tmp/nginx-ee.log 2>&1
+    bash <(curl -f -L -sS https://ngxpagespeed.com/install) --ngx-pagespeed-version latest-beta -b /usr/local/src >> /tmp/nginx-ee.log 2>&1
   cd /usr/local/src/ || exit
-  
+
   if [ $? -eq 0 ]; then
-  			echo -ne "       Downloading pagespeed                  [${CGREEN}OK${CEND}]\\r"
-  			echo -ne "\\n"
-  		else
-  			echo -e "       Downloading pagespeed      [${CRED}FAIL${CEND}]"
-  			echo ""
-  			echo "Please look at /tmp/nginx-ee.log"
-  			echo ""
-  			exit 1
+	    echo -ne "       Downloading pagespeed                  [${CGREEN}OK${CEND}]\\r"
+	    echo -ne "\\n"
+	else
+	    echo -e "       Downloading pagespeed      [${CRED}FAIL${CEND}]"
+	    echo ""
+	    echo "Please look at /tmp/nginx-ee.log"
+	    echo ""
+	    exit 1
   fi
+fi
+
+## get modsecurity
+
+if [ "$modsecurity" = "y" ]
+then
+  echo -ne "       Downloading modsecurity                      [..]\\r"
+    git clone --depth 1 -b v3/master --single-branch https://github.com/SpiderLabs/ModSecurity >> /tmp/nginx-ee.log 2>&1
+    git clone --depth 1 https://github.com/SpiderLabs/ModSecurity-nginx.git >> /tmp/nginx-ee.log 2>&1
+    cd /usr/local/src/ModSecurity ; git submodule init ; git submodule update ; ./build.sh ; ./configure ; make ; make install
+    mkdir /etc/nginx/modsec
+    wget -P /etc/nginx/modsec/ https://raw.githubusercontent.com/SpiderLabs/ModSecurity/v3/master/modsecurity.conf-recommended
+    mv /etc/nginx/modsec/modsecurity.conf-recommended /etc/nginx/modsec/modsecurity.conf
+    sed -i 's/SecRuleEngine DetectionOnly/SecRuleEngine On/' /etc/nginx/modsec/modsecurity.conf
+  cd /usr/local/src || exit
+
+  if [ $? -eq 0 ]; then
+	    echo -ne "       Downloading modsecurity                      [${CGREEN}OK${CEND}]\\r"
+	    echo -ne "\\n"
+	else
+	    echo -e "       Downloading modsecurity      [${CRED}FAIL${CEND}]"
+	    echo ""
+	    echo "Please look at /tmp/nginx-ee.log"
+	    echo ""
+	    exit 1
+  fi
+
 fi
 
 ## get nginx
@@ -247,14 +284,14 @@ mv nginx-${NGINX_RELEASE} nginx
 cd /usr/local/src/nginx/ || exit
 
 if [ $? -eq 0 ]; then
-			echo -ne "       Downloading nginx                      [${CGREEN}OK${CEND}]\\r"
-			echo -ne "\\n"
-		else
-			echo -e "       Downloading nginx      [${CRED}FAIL${CEND}]"
-			echo ""
-			echo "Please look at /tmp/nginx-ee.log"
-			echo ""
-			exit 1
+	    echo -ne "       Downloading nginx                      [${CGREEN}OK${CEND}]\\r"
+	    echo -ne "\\n"
+	else
+	    echo -e "       Downloading nginx      [${CRED}FAIL${CEND}]"
+	    echo ""
+	    echo "Please look at /tmp/nginx-ee.log"
+	    echo ""
+	    exit 1
 fi
 
 ## apply dynamic tls records patch
@@ -265,14 +302,14 @@ wget https://raw.githubusercontent.com/cujanovic/nginx-dynamic-tls-records-patch
 patch -p1 < nginx__dynamic_tls_records_1.13*.patch >> /tmp/nginx-ee.log 2>&1
 
 if [ $? -eq 0 ]; then
-			echo -ne "       applying nginx patch                   [${CGREEN}OK${CEND}]\\r"
-			echo -ne "\\n"
-		else
-			echo -e "        applying nginx patch      [${CRED}FAIL${CEND}]"
-			echo ""
-			echo "Please look at /tmp/nginx-ee.log"
-			echo ""
-			exit 1
+	    echo -ne "       applying nginx patch                   [${CGREEN}OK${CEND}]\\r"
+	    echo -ne "\\n"
+	else
+	    echo -e "        applying nginx patch      [${CRED}FAIL${CEND}]"
+	    echo ""
+	    echo "Please look at /tmp/nginx-ee.log"
+	    echo ""
+	    exit 1
 fi
 
 ## configuration
@@ -336,21 +373,22 @@ echo -ne "       Configure nginx                       [..]\\r"
  --add-dynamic-module=/usr/local/src/nginx-length-hiding-filter-module \
  --add-dynamic-module=/usr/local/src/rds-csv-nginx-module \
  --add-dynamic-module=/usr/local/src/encrypted-session-nginx-module \
+ --add-dynamic-module=/usr/local/src/ModSecurity-nginx \
  --add-module=/usr/local/src/ipscrub \
  $ngx_pagespeed \
  --with-openssl=/usr/local/src/openssl \
  --with-openssl-opt=enable-tls1_3 \
  --sbin-path=/usr/sbin/nginx  >> /tmp/nginx-ee.log 2>&1
- 
+
  if [ $? -eq 0 ]; then
- 			echo -ne "       Configure nginx                        [${CGREEN}OK${CEND}]\\r"
- 			echo -ne "\\n"
- 		else
- 			echo -e "        Configure nginx      [${CRED}FAIL${CEND}]"
- 			echo ""
- 			echo "Please look at /tmp/nginx-ee.log"
- 			echo ""
- 			exit 1
+	    echo -ne "       Configure nginx                        [${CGREEN}OK${CEND}]\\r"
+	    echo -ne "\\n"
+	else
+	    echo -e "        Configure nginx      [${CRED}FAIL${CEND}]"
+	    echo ""
+	    echo "Please look at /tmp/nginx-ee.log"
+	    echo ""
+	    exit 1
  fi
 
  ## compilation
