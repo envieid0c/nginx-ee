@@ -119,35 +119,39 @@ cd /usr/local/src || exit
 
 echo -ne "       Downloading additionals modules        [..]\\r"
 
-git clone https://github.com/FRiCKLE/ngx_cache_purge.git >> /tmp/nginx-ee.log 2>&1
-git clone https://github.com/openresty/memc-nginx-module.git >> /tmp/nginx-ee.log 2>&1
-git clone https://github.com/simpl/ngx_devel_kit.git >> /tmp/nginx-ee.log 2>&1
-git clone https://github.com/openresty/headers-more-nginx-module.git >> /tmp/nginx-ee.log 2>&1
-git clone https://github.com/openresty/echo-nginx-module.git >> /tmp/nginx-ee.log 2>&1
-git clone https://github.com/yaoweibin/ngx_http_substitutions_filter_module.git >> /tmp/nginx-ee.log 2>&1
-git clone https://github.com/openresty/redis2-nginx-module.git >> /tmp/nginx-ee.log 2>&1
-git clone https://github.com/openresty/srcache-nginx-module.git >> /tmp/nginx-ee.log 2>&1
-git clone https://github.com/openresty/set-misc-nginx-module.git >> /tmp/nginx-ee.log 2>&1
-git clone https://github.com/FRiCKLE/ngx_coolkit.git >> /tmp/nginx-ee.log 2>&1
-git clone https://github.com/sto/ngx_http_auth_pam_module.git >> /tmp/nginx-ee.log 2>&1
-git clone https://github.com/envieid0c/socks-nginx-module.git >> /tmp/nginx-ee.log 2>&1
-git clone https://github.com/simplresty/ngx_devel_kit.git >> /tmp/nginx-ee.log 2>&1
-git clone https://github.com/openresty/lua-nginx-module.git >> /tmp/nginx-ee.log 2>&1
-git clone https://github.com/openresty/encrypted-session-nginx-module.git >> /tmp/nginx-ee.log 2>&1
-git clone https://github.com/calio/iconv-nginx-module.git >> /tmp/nginx-ee.log 2>&1
-git clone https://github.com/openresty/array-var-nginx-module.git >> /tmp/nginx-ee.log 2>&1
-git clone https://github.com/arut/nginx-ts-module.git >> /tmp/nginx-ee.log 2>&1
-git clone https://github.com/sergey-dryabzhinsky/nginx-rtmp-module.git  >> /tmp/nginx-ee.log 2>&1
-git clone https://github.com/vozlt/nginx-module-vts.git >> /tmp/nginx-ee.log 2>&1
-git clone https://github.com/mailru/graphite-nginx-module.git >> /tmp/nginx-ee.log 2>&1
-git clone https://github.com/aperezdc/ngx-fancyindex.git >> /tmp/nginx-ee.log 2>&1
-git clone https://github.com/slact/nchan.git >> /tmp/nginx-ee.log 2>&1
-git clone https://github.com/openresty/rds-json-nginx-module.git >> /tmp/nginx-ee.log 2>&1
-git clone https://github.com/nulab/nginx-length-hiding-filter-module.git >> /tmp/nginx-ee.log 2>&1
-git clone https://github.com/openresty/rds-csv-nginx-module.git >> /tmp/nginx-ee.log 2>&1
-git clone https://github.com/openresty/encrypted-session-nginx-module.git >> /tmp/nginx-ee.log 2>&1
-git clone https://github.com/masonicboom/ipscrub.git ipscrubtmp >> /tmp/nginx-ee.log 2>&1
-git clone https://github.com/kyprizel/testcookie-nginx-module.git >> /tmp/nginx-ee.log 2>&1
+{
+git clone https://github.com/FRiCKLE/ngx_cache_purge.git
+git clone https://github.com/openresty/memc-nginx-module.git
+git clone https://github.com/simpl/ngx_devel_kit.git
+git clone https://github.com/openresty/headers-more-nginx-module.git
+git clone https://github.com/openresty/echo-nginx-module.git
+git clone https://github.com/yaoweibin/ngx_http_substitutions_filter_module.git
+git clone https://github.com/openresty/redis2-nginx-module.git
+git clone https://github.com/openresty/srcache-nginx-module.git
+git clone https://github.com/openresty/set-misc-nginx-module.git
+git clone https://github.com/FRiCKLE/ngx_coolkit.git
+git clone https://github.com/sto/ngx_http_auth_pam_module.git
+git clone https://github.com/envieid0c/socks-nginx-module.git
+git clone https://github.com/simplresty/ngx_devel_kit.git
+git clone https://github.com/openresty/lua-nginx-module.git
+git clone https://github.com/openresty/encrypted-session-nginx-module.git
+git clone https://github.com/calio/iconv-nginx-module.git
+git clone https://github.com/openresty/array-var-nginx-module.git
+git clone https://github.com/arut/nginx-ts-module.git
+git clone https://github.com/sergey-dryabzhinsky/nginx-rtmp-module.git
+git clone https://github.com/vozlt/nginx-module-vts.git
+git clone https://github.com/mailru/graphite-nginx-module.git
+git clone https://github.com/aperezdc/ngx-fancyindex.git
+git clone https://github.com/slact/nchan.git
+git clone https://github.com/openresty/rds-json-nginx-module.git
+git clone https://github.com/nulab/nginx-length-hiding-filter-module.git
+git clone https://github.com/openresty/rds-csv-nginx-module.git
+git clone https://github.com/openresty/encrypted-session-nginx-module.git
+git clone https://github.com/masonicboom/ipscrub.git ipscrubtmp
+git clone https://github.com/kyprizel/testcookie-nginx-module.git
+git clone https://github.com/vozlt/nginx-module-vts.git
+} >> /tmp/nginx-ee.log 2>&1
+
 cp -rf /usr/local/src/ipscrubtmp/ipscrub /usr/local/src/ipscrub >> /tmp/nginx-ee.log 2>&1
 
 wget https://people.freebsd.org/~osa/ngx_http_redis-0.3.8.tar.gz >> /tmp/nginx-ee.log 2>&1
@@ -376,6 +380,7 @@ echo -ne "       Configure nginx                       [..]\\r"
  --add-dynamic-module=/usr/local/src/encrypted-session-nginx-module \
  --add-dynamic-module=/usr/local/src/ModSecurity-nginx \
  --add-dynamic-module=/usr/local/src/testcookie-nginx-module \
+ --add-module=/usr/local/src/nginx-module-vts \
  --add-module=/usr/local/src/ipscrub \
  $ngx_pagespeed \
  --with-openssl=/usr/local/src/openssl \
